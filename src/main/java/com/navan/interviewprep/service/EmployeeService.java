@@ -25,4 +25,8 @@ public class EmployeeService {
         return ResponseEntity.ok(empList);
     }
 
+    public String greet(String name) {
+        return "Hello, " + name + "!";
+    }
+
 }

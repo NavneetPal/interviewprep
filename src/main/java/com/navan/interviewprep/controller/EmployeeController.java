@@ -25,4 +25,13 @@ public class EmployeeController {
     public ResponseEntity<List<Employee>> getTop3Employee(){
         return employeeService.fetchTopEmployee();
     }
+
+    @GetMapping("/greet")
+    public ResponseEntity<String> greet(
+            @RequestParam(value="name", defaultValue="") String name
+    ){
+        String greeting = employeeService.greet(name);
+        return ResponseEntity.ok(greeting);
+    }
+
 }
