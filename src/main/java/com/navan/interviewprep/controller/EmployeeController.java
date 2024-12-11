@@ -4,6 +4,7 @@ package com.navan.interviewprep.controller;
 import com.navan.interviewprep.entity.Employee;
 import com.navan.interviewprep.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
@@ -16,12 +17,16 @@ import java.util.List;
 @RequestMapping(value="/employee")
 @RequiredArgsConstructor
 @RefreshScope
+@Slf4j
 public class EmployeeController {
 
     private final EmployeeService employeeService;
 
     @Value("${company.name}")
     private String company;
+
+    @Value("${company.designation}")
+    private String designation;
 
     @PostMapping("/create")
     public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee){
@@ -43,6 +48,9 @@ public class EmployeeController {
 
     @GetMapping(path="/company")
     public ResponseEntity<String> getCompanyName(){
-        return new ResponseEntity<>(company, HttpStatus.OK);
+        log.info("Fetching the company name");
+        String res = "Employee worked in a "+company+" as a "+designation +"role";
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
+    
 }
