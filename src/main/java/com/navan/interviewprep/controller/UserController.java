@@ -22,6 +22,6 @@ public class UserController {
 
     @GetMapping("/data")
     public ResponseEntity<List<User>> getUserData(){
-        return userService.getUserDetails();
+        return userService.getUserDetailsThroughFeignClient() ;
     }
 }

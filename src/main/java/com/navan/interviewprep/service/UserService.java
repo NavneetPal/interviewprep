@@ -1,5 +1,6 @@
 package com.navan.interviewprep.service;
 
+import com.navan.interviewprep.external.client.UserMicroService;
 import com.navan.interviewprep.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -17,6 +18,9 @@ public class UserService {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private UserMicroService microService;
+
     public ResponseEntity<List<User>> getUserDetails() {
         String url = "http://MICROSERVICEAPP/ms/getUserData";
         ResponseEntity<List<User>> userList = restTemplate.exchange(
@@ -29,4 +33,8 @@ public class UserService {
         return userList;
     }
 
+    public ResponseEntity<List<User>> getUserDetailsThroughFeignClient() {
+        ResponseEntity<List<User>> userList = microService.fetchEmployeeData();
+        return userList;
+    }
 }
