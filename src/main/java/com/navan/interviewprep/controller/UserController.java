@@ -20,8 +20,15 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/data")
-    public ResponseEntity<List<User>> getUserData(){
+    @GetMapping("/data/v1")
+    public ResponseEntity<List<User>> getUserDataV1(){
+        log.info("Request to fetch User data through RestTemplate");
+        return userService.getUserDetails();
+    }
+
+    @GetMapping("/data/v2")
+    public ResponseEntity<List<User>> getUserDataV2(){
+        log.info("Request to fetch User dataThrough Feignclient");
         return userService.getUserDetailsThroughFeignClient() ;
     }
 }
